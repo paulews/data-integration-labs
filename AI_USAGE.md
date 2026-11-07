@@ -13,3 +13,10 @@
 - **Prompt:** Asked how individual Markdown features work (code blocks, inline code, nested lists, line breaks) and for feedback on my cheat sheet. Claude also wrote a complete draft of the cheat sheet.
 - **Accepted / changed / rejected:** Wrote the first entries myself, then used Claude's draft as the basis for the rest and typed it into my file. Claude formulated the pitfalls from the problems I ran into, and pointed out missing parts and errors.
 - **How I checked it:** Tested the whole cheat sheet in the CommonMark dingus and on GitHub, set the CommonMark/GitHub labels from what I saw, and checked unclear cases in the dingus HTML tab.
+
+## 2026-11-07 · Lab 01, Task 4
+
+- **Tool and model:** Claude (Anthropic), Claude Opus 5.5
+- **Prompt:** Asked which project to choose and where to find each answer, and shared what I found.
+- **Accepted / changed / rejected:** I collected most facts myself on GitHub (licence, API results, community files, contributors, latest release, open issues and pull requests, good first issues). For governance, sponsors and the contributing process, Claude pointed me to the pages and summarised them. Claude phrased the sections in English; I accepted the wording.
+- **How I checked it:** Opened the governance, sponsors and contributing pages and the co2-data README myself and checked every statement against them.
