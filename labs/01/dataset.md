@@ -130,3 +130,67 @@ When we publish our own dataset for milestone 2, we will:
 1. write dates in ISO 8601 and say which time zone they use,
 2. put the licence and a description in machine-readable metadata (for example a `datapackage.json` or a README with a licence file),
 3. use empty cells or a documented `NA` for missing values instead of a magic number like `-999`.
+
+## Task 8: Combination plan
+
+### Second source
+
+**Deutsche Bahn delay data** collected by the GitHub user piebro from the DB Timetables API: [huggingface.co/datasets/piebro/deutsche-bahn-data](https://huggingface.co/datasets/piebro/deutsche-bahn-data) ([documentation](https://github.com/piebro/deutsche-bahn-data)). Licence: CC BY 4.0, original publisher Deutsche Bahn. It has one row per train stop with planned and actual times, `delay_in_min`, cancellations and train type, for the ~100 largest stations (including Köln Hbf) since 07/2024, as monthly Parquet files.
+
+### Shared key
+
+Both sources are linked by **time** (date and hour). The place is fixed: DB rows are filtered to Köln Hbf (`station_name`), the weather comes from station 02667 Köln/Bonn.
+
+Real values from both sources (DB: `data-2025-05.parquet`, filtered to `station_name == "Köln Hbf"`, read with pandas):
+
+| DB `time` (German time) | Train | → UTC | DWD `MESS_DATUM` |
+| --- | --- | --- | --- |
+| `2025-05-08 02:13:00` | S, 0 min late | 00:13 | `2025050800` |
+| `2025-05-08 02:16:00` | S, 1 min late | 00:16 | `2025050800` |
+| `2025-05-08 02:24:00` | S, 0 min late | 00:24 | `2025050800` |
+| `2025-05-08 17:01:00` | S 11, 14 min late (planned 16:47) | 15:01 | `2025050815` |
+
+In May 2025, Köln Hbf has 32,806 train stops (of 2,011,335 in the whole file), about 44 per hour. The station also has an official code: `eva` = `08000207`.
+
+They do not match as published:
+
+- **Time zone:** DWD uses UTC, DB uses German local time (CET/CEST). We must convert one of them: +1 hour in winter, +2 hours in summer, with the switch in March and October.
+- **Format:** DWD writes `YYYYMMDDHH` as a number, DB a real timestamp. We parse `MESS_DATUM` into a timestamp.
+- **Precision:** DB times are exact to the minute, DWD gives whole hours. We cut DB times down to the hour (floor).
+- **Planned or actual time:** DB `time` is the *actual* time (17:01 above), the planned time was 16:47. Here the two fall into different weather hours, so we must decide which one to join on.
+- **Time zone not stored:** DB timestamps carry no time zone (`.dt.tz` is `None`); only the documentation says they are German time.
+- **Hour meaning:** we still have to check in the DWD description whether `2025050800` covers the hour before or after 00:00.
+
+### Granularity
+
+DWD has **one row per hour**, DB has **one row per train stop** (several hundred per hour at Köln Hbf). Two ways to align them:
+
+1. aggregate DB per hour (mean delay, share of trains more than 5 minutes late, number of cancellations) and join one weather row per hour, or
+2. give every train stop the weather of its hour, which keeps train type for comparing ICE/IC with regional trains.
+
+Area: the weather station is at Köln/Bonn airport, about 15 km from Köln Hbf. Local showers can differ, which we must mention as a limitation.
+
+### Research questions
+
+1. Are trains at Köln Hbf more delayed in hours with precipitation than in dry hours?
+2. Does the share of cancelled trains rise with heavy rain (for example more than 5 mm per hour)?
+3. Does rain affect long-distance trains (ICE/IC) more than regional trains?
+
+### Licences
+
+Both sources are licensed under CC BY 4.0, so we may combine them and publish the joined table, also under CC BY 4.0. We must credit the **Deutscher Wetterdienst** and **Deutsche Bahn** (data collected by piebro), link the licence and state our changes (filtered to Köln, converted time zone, aggregated per hour).
+
+### Next steps
+
+```mermaid
+flowchart LR
+  A[Download DWD recent + historical ZIP] --> B[Read CSV, drop -999, parse MESS_DATUM as UTC]
+  C[Download DB monthly Parquet 07/2024 onwards] --> D[Filter Köln Hbf, convert time to UTC, floor to hour]
+  B --> E[Join on hour]
+  D --> E
+  E --> F[Joined table: delay and weather per hour]
+```
+
+### Verdict
+
+Yes, we will build our project on this dataset: it is open, measured, hourly and well documented, and it covers the same period as the DB data. The biggest risk is the **join**: a time zone mistake would shift every hour, and the weather at the airport is not exactly the weather at Köln Hbf. We also need the *historical* DWD file, because the *recent* file only starts in May 2025.
