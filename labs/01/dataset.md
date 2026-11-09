@@ -34,3 +34,33 @@ I chose the **hourly precipitation observations of the Deutscher Wetterdienst (D
 - **Publisher:** Deutscher Wetterdienst (DWD), Climate Data Center
 - **Dataset:** [hourly precipitation, all stations](https://opendata.dwd.de/climate_environment/CDC/observations_germany/climate/hourly/precipitation/)
 - **File:** [station 02667 Köln/Bonn, recent values](https://opendata.dwd.de/climate_environment/CDC/observations_germany/climate/hourly/precipitation/recent/stundenwerte_RR_02667_akt.zip)
+
+## Task 6: Profile
+
+### Open the data
+
+I downloaded and unzipped the file in Git Bash (`curl`, `unzip`) and opened the data file `produkt_rr_stunde_20250508_20261108_02667.txt` in **Microsoft Excel** (Data → From Text/CSV, Power Query).
+
+The ZIP file contains 1 data file and 15 metadata files (station location, station name, devices, parameters, missing data). The data file has 13,200 rows and 7 columns, one row per hour from 08.05.2025 00:00 to 08.11.2026 23:00.
+
+```text
+STATIONS_ID;MESS_DATUM;QN_8;  R1;RS_IND;WRTR;eor
+       2667;2025050800;    3;   0.0;   0;   0;eor
+```
+
+| Column | Min | Max | Mean | Missing (-999) |
+| --- | --- | --- | --- | --- |
+| `R1` (precipitation in mm) | 0 | 14.9 | 0.083 | 2 |
+| `RS_IND` (precipitation yes/no) | 0 | 1 | 0.197 | 2 |
+
+Min and mean are calculated without the missing values. In about 20 % of all hours it rained, and the wettest hour brought 14.9 mm.
+
+What I noticed:
+
+- **Missing values** are not empty cells but coded as `-999`. If you do not exclude them, the minimum is -999 and the mean of `R1` becomes negative (-0.068).
+- **Encoding:** the files are not UTF-8 but Latin-1. In Git Bash, umlauts appear broken (`Kln/Bonn` instead of `Köln/Bonn`, `Schl▒sselgruppen`). In Excel I had to choose *Western European (ISO)*.
+- **Separator and spaces:** columns are separated by `;`, and values and some column names are padded with spaces (the column is called `"  R1"`, not `R1`).
+- **Decimal point:** `R1` uses a decimal point. German Excel read `0.3` as `3` at first, until I set the column type to *Decimal number* with the locale *English (US)*.
+- **Time:** `MESS_DATUM` is written as `YYYYMMDDHH` and is in **UTC** (`Metadaten_Parameter_rr_stunde_02667.txt`), not in German local time.
+- **Last column** `eor` only means *end of record* and holds no data.
+- **Coverage:** the *recent* file only starts on 08.05.2025. Older data is in a separate file in the folder `historical/`.
