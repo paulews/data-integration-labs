@@ -107,3 +107,26 @@ Attribution for our README (TASL):
 ### People
 
 The data contains no personal data: it holds measurements of one weather station, run by the DWD, and no information about people.
+
+## Task 7: FAIR review
+
+| Principle | Rating | Evidence |
+| --- | --- | --- |
+| F1 | ~ | Stable URL for the dataset ([…/hourly/precipitation/](https://opendata.dwd.de/climate_environment/CDC/observations_germany/climate/hourly/precipitation/)) and for each file, but no DOI for the dataset itself: the description PDF only cites a DOI for a paper about the Climate Data Center ([Kaspar et al. 2013, doi:10.5194/asr-10-99-2013](https://doi.org/10.5194/asr-10-99-2013)). The name of the *recent* file stays the same, its content changes every day. |
+| F2 | ~ | Rich metadata exists (15 metadata files per station plus a description PDF), but the download page itself is only a folder listing without title, description or keywords. |
+| F4 | ~ | Not found on GovData or Offene Daten Köln. Via Google Dataset Search I only found other DWD datasets. On data.europa.eu, `Stundenwerte Niederschlag` gives over 6,500 hits, so the dataset is hard to find even if it is indexed. |
+| A1 | ✓ | Download via HTTPS without login, also from the command line with `curl`. |
+| I1 | ✓ | Plain text with `;` as separator, readable by any tool; ZIP is an open format. |
+| I2, I3 | ~ | Dates are written as `YYYYMMDDHH` in UTC, close to ISO 8601 but not the standard form (`2025-05-08T00:00Z`). The station has a DWD ID and coordinates, but no official municipality key. The data links to its metadata files and the description, not to related datasets. |
+| R1 | ✓ | Every column is described in the description PDF and in `Metadaten_Parameter_rr_stunde_02667.txt`, including units and time zone. |
+| R1.1 | ~ | The licence is clear (CC BY 4.0 in the [Terms of use](https://opendata.dwd.de/climate_environment/CDC/Terms_of_use.pdf)), but only as a PDF, not in machine-readable metadata of the dataset or its files. |
+| R1.2 | ✓ | Provenance is well documented: operator (DWD, before 1957 *Wetterdienst*), station history with all locations since 1892, devices and data source (SYNOP reports), known errors (device problem 2021). It is the original. |
+| R1.3 | ✗ | The folder offers no DCAT-AP metadata. Other DWD datasets do appear with DCAT-AP on data.europa.eu, this one I did not find there. |
+
+**Verdict:** The dataset is clearly **open** (CC BY 4.0, free download, open format) and only **partly FAIR**: it is very accessible and reusable, but hard to find, because it lives in a folder structure without a catalogue entry, DOI or machine-readable licence.
+
+When we publish our own dataset for milestone 2, we will:
+
+1. write dates in ISO 8601 and say which time zone they use,
+2. put the licence and a description in machine-readable metadata (for example a `datapackage.json` or a README with a licence file),
+3. use empty cells or a documented `NA` for missing values instead of a magic number like `-999`.
