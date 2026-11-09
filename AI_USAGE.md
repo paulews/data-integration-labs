@@ -20,3 +20,17 @@
 - **Prompt:** Asked which project to choose and where to find each answer, and shared what I found.
 - **Accepted / changed / rejected:** I collected most facts myself on GitHub (licence, API results, community files, contributors, latest release, open issues and pull requests, good first issues). For governance, sponsors and the contributing process, Claude pointed me to the pages and summarised them. Claude phrased the sections in English; I accepted the wording.
 - **How I checked it:** Opened the governance, sponsors and contributing pages and the co2-data README myself and checked every statement against them.
+
+## 2026-11-07 · Lab 02, Task 1
+
+- **Tool and model:** Claude (Anthropic), Claude Opus 5.5
+- **Prompt:** Asked how to read the output of some commands (`ps -ef`, `kill`, `cygpath`) and for feedback on my `shell.md`.
+- **Accepted / changed / rejected:** I ran all commands in Git Bash on my own PC, collected the outputs and wrote a first version with all answers. Claude then polished it: code blocks for commands and outputs, my home path in Q2, `git --version` in Q3, and the reason why `grep` usually lists itself in Q5.
+- **How I checked it:** All outputs come from my own terminal; I compared every answer with them.
+
+## 2026-11-09 · Lab 01, Task 5
+
+- **Tool and model:** Claude (Anthropic), Claude Opus 5.5
+- **Prompt:** Asked where to search for hourly weather data for Cologne, how to read the GovData API answer, and which of my hits is the original source.
+- **Accepted / changed / rejected:** I ran all searches myself (GovData, Offene Daten Köln, Google Dataset Search, the API query) and wrote a first version of the section. Claude explained the `title` and `license` fields, pointed out that the EDDK hit on data.europa.eu is probably a forecast and not measured data, gave me the links to the DWD Climate Data Center, and rewrote the section.
+- **How I checked it:** Every search term and result in the table is from my own searches; I opened the API answer and the DWD links myself.
