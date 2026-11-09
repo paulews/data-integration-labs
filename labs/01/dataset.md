@@ -37,6 +37,24 @@ I chose the **hourly precipitation observations of the Deutscher Wetterdienst (D
 
 ## Task 6: Profile
 
+### Facts
+
+| Fact | Value |
+| --- | --- |
+| Title | Hourly station observations of precipitation for Germany (*Stundenwerte Niederschlag*), station 02667 Köln/Bonn |
+| Publisher | Deutscher Wetterdienst (DWD), Climate Data Center (original publisher) |
+| Link | [opendata.dwd.de/…/hourly/precipitation/](https://opendata.dwd.de/climate_environment/CDC/observations_germany/climate/hourly/precipitation/) |
+| Formats | ZIP containing a `;`-separated text file (CSV) plus metadata as TXT and HTML |
+| Size | 1 ZIP (47 KB) with 16 files; data file 673 KB, 13,200 rows, 7 columns |
+| Coverage | 08.05.2025 to 08.11.2026 (*recent*; older data in `historical/`, station measures since 1892) · station Köln/Bonn airport (50.86° N, 7.16° E, 91 m) · hourly |
+| Last update | 09.11.2026 09:05 (date in the folder listing) |
+| Update frequency | daily (the *recent* file is replaced every day) |
+| Licence | CC BY 4.0 ([Terms of use](https://opendata.dwd.de/climate_environment/CDC/Terms_of_use.pdf)) |
+
+### Stars
+
+★★★ (3 of 5): the data is on the web under an open licence (★), machine-readable (★★) and in a non-proprietary format, plain text with separators (★★★). For the fourth star, each station and each measurement would need its own URI, for example in RDF, so that others can point to it.
+
 ### Open the data
 
 I downloaded and unzipped the file in Git Bash (`curl`, `unzip`) and opened the data file `produkt_rr_stunde_20250508_20261108_02667.txt` in **Microsoft Excel** (Data → From Text/CSV, Power Query).
@@ -64,3 +82,28 @@ What I noticed:
 - **Time:** `MESS_DATUM` is written as `YYYYMMDDHH` and is in **UTC** (`Metadaten_Parameter_rr_stunde_02667.txt`), not in German local time.
 - **Last column** `eor` only means *end of record* and holds no data.
 - **Coverage:** the *recent* file only starts on 08.05.2025. Older data is in a separate file in the folder `historical/`.
+
+### Data dictionary
+
+The DWD documents all columns in [DESCRIPTION_obsgermany_climate_hourly_precipitation_en.pdf](https://opendata.dwd.de/climate_environment/CDC/observations_germany/climate/hourly/precipitation/DESCRIPTION_obsgermany_climate_hourly_precipitation_en.pdf) and in `Metadaten_Parameter_rr_stunde_02667.txt`.
+
+| Column | Meaning | Type and unit | Example |
+| --- | --- | --- | --- |
+| `STATIONS_ID` | ID of the weather station | integer, code | `2667` |
+| `MESS_DATUM` | date and hour of the measurement | date and hour `YYYYMMDDHH`, UTC | `2025050800` |
+| `QN_8` | quality level of the row | integer, code | `3` |
+| `R1` | precipitation in this hour | decimal, mm | `0.3` |
+| `RS_IND` | did it rain or snow in this hour? | integer, 0 = no, 1 = yes | `1` |
+| `WRTR` | form of precipitation (rain, snow …) | integer, code; only reported for some hours | `0` |
+
+### Licence
+
+The data is open according to the Open Definition: CC BY 4.0 allows anyone to use, change and share it, also commercially. When we reuse it, we must name the source, link the licence and say whether we changed the data.
+
+Attribution for our README (TASL):
+
+> *Stundenwerte Niederschlag, station 02667 Köln/Bonn* by Deutscher Wetterdienst (DWD), [opendata.dwd.de](https://opendata.dwd.de/climate_environment/CDC/observations_germany/climate/hourly/precipitation/), licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Filtered and converted to local time by us.
+
+### People
+
+The data contains no personal data: it holds measurements of one weather station, run by the DWD, and no information about people.
