@@ -1,7 +1,7 @@
 #!/bin/bash
 # get_data.sh: downloads the hourly precipitation of DWD station 02667 Köln/Bonn (recent values).
 # Usage: ./get_data.sh
-#
+# Run it inside labs/03. The files go to data/raw/, which Git ignores.
 # Source:  Deutscher Wetterdienst (DWD), Stundenwerte Niederschlag, station 02667 Köln/Bonn,
 #          https://opendata.dwd.de/climate_environment/CDC/observations_germany/climate/hourly/precipitation/
 # Licence: CC BY 4.0, https://creativecommons.org/licenses/by/4.0/
