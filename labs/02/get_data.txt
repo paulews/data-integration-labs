@@ -1,0 +1,12 @@
+== Size
+-rw-r--r-- 1 paule 197610 658K Nov 10 09:41 data/raw/rr_02667/produkt_rr_stunde_20250509_20261109_02667.txt
+== Type
+data/raw/rr_02667/produkt_rr_stunde_20250509_20261109_02667.txt: ASCII text, with CRLF line terminators
+== Lines
+13201
+== Columns
+7
+== First lines
+STATIONS_ID;MESS_DATUM;QN_8;  R1;RS_IND;WRTR;eor
+       2667;2025050900;    3;   0.0;   0;   0;eor
+       2667;2025050901;    3;   0.0;   0;   0;eor
