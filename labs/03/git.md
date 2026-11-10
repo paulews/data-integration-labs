@@ -126,3 +126,38 @@ nothing to commit, working tree clean
 ```
 
 Before the push, my local `main` had one commit that GitHub did not have yet. After the push, both are at the same commit `314e18e`. My avatar is shown next to the commit on GitHub, because it carries my `noreply` address.
+
+## Step by step
+
+`git log --oneline -- .` in `labs/03`:
+
+```text
+68ea7a9 (HEAD -> main, origin/main, origin/HEAD) Fix Markdown formatting of the README
+d207f71 Explain how to rebuild the raw data
+e628ad1 Print a checksum of the downloaded file
+11c8575 Explain where to run the script and where the data goes
+21d2e6f Ignore raw data in lab 3
+03bfe05 Copy the download script from lab 2
+667a9b2 Add git status before and after first push
+314e18e Add commit graph and setup notes for Lab 3 Tasks 1-2
+```
+
+My commit `adb826c Ignore raw data in lab 2` is missing here, because `-- .` only lists commits that changed something in this folder.
+
+`git status --ignored` in `labs/03`:
+
+```text
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Ignored files:
+  (use "git add -f <file>..." to include in what will be committed)
+        ../02/data/
+        data/
+
+nothing to commit, working tree clean
+```
+
+**Why does the `.gitignore` belong in the repository, but `data/raw/` does not?** The `.gitignore` is a small text file that everyone who clones the repository needs: without it, their raw data would show up in `git status` and could be committed by mistake. `data/raw/` is not our work but a copy of the DWD's data. Anyone can download it again with `get_data.sh`, and it changes every day, so every download would create a new version in Git for nothing.
+
+**What does a teammate need to get my raw data?** A clone of the repository, a shell with `curl` and `unzip` (Git Bash has both) and internet access. Then `cd labs/03` and `./get_data.sh`, as the `README.md` explains. Since the DWD moves the *recent* file forward every day, they get a slightly different period than I did. The checksum at the end of the script shows whether two downloads are identical.
