@@ -24,6 +24,7 @@ echo "== Type";        file "$data"
 echo "== Lines";       wc -l < "$data"
 echo "== Columns";     head -n 1 "$data" | tr ';' '\n' | wc -l
 echo "== First lines"; head -n 3 "$data"
+echo "== Checksum"; git hash-object --no-filters "$out"
 
 # Compared with dataset.md (downloaded one day earlier):
 # - Period: 09.05.2025-09.11.2026 instead of 08.05.2025-08.11.2026. The "recent" file
