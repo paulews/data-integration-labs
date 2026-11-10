@@ -6,7 +6,7 @@
 #          https://opendata.dwd.de/climate_environment/CDC/observations_germany/climate/hourly/precipitation/
 # Licence: CC BY 4.0, https://creativecommons.org/licenses/by/4.0/
 
-url="https://opendata.dwd.de/climate_environment/CDC/observations_germany/climate/hourly/precipitation/recent/stundenwerte_RR_02667_akt.zip"
+url="https://opendata.dwd.de/climate_environment/CDC/observations_germany/climate/hourly/precipitation/recent/stundenwerte_RR_02667_xyz.zip"
 out="data/raw/rr_02667_recent.zip"
 
 mkdir -p data/raw
