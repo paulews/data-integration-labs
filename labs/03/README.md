@@ -24,3 +24,5 @@ The script creates `data/raw/` with the ZIP, the unpacked files and `SOURCES.txt
 ## Source and licence
 
 *Stundenwerte Niederschlag, station 02667 Köln/Bonn* by Deutscher Wetterdienst (DWD), [opendata.dwd.de](https://opendata.dwd.de/climate_environment/CDC/observations_germany/climate/hourly/precipitation/), licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
+
+Part of my labs for DIS 3.3 Data Integration at TH Köln.
