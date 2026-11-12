@@ -55,3 +55,11 @@
 - **Prompt:** Asked how to do each step and what Git's answers mean, and gave my own short answers to the questions in German.
 - **Accepted / changed / rejected:** In Task 1, I made the predictions myself; Claude corrected them and wrote my answers into `graph.md`. I typed and ran every Git command myself, made all commits, branches, the merge and the conflict resolution, had the idea for the new comment in Task 3 (Claude phrased it) and found issue #18 on GitHub. Claude gave me the commands for each step (including the `grep`/`cut` combinations and the loop in Task 6), explained the outputs, and wrote most of the text in `git.md` (Setup, Step by step, Undo), `README.md`, `conflict.md` and `history.md` from my outputs and my short answers. Claude corrected some of my answers, for example why Git groups neighbouring changes into one conflict, and what to note for data without Git.
 - **How I checked it:** Every output in the files comes from my own terminal. Claude checked each pushed file on GitHub; twice the Markdown broke when I copied from the preview (`\#`), and I fixed it.
+
+
+## 2026-11-12 · Lab 03, Task 7
+
+- **Tool and model:** Claude (Anthropic), Claude Opus 5.5
+- **Prompt:** Asked how to do each step of the team workflow (issues, branches, pull requests, reviews, merging, cleaning up) and how to fill in `team.md`.
+- **Accepted / changed / rejected:** Claude gave me the Git commands and explained the GitHub screens; I ran every command myself and created the issues, branches and pull requests, reviewed my teammates' pull requests and merged my own. Claude phrased the team table, the plan table and the extended DWD row in the team README; the dates, roles and data sources we decided as a team, and I corrected Claude where it had swapped two teammates' datasets. Claude wrote `team.md` from my terminal output and from what happened in our repository, including the reflection.
+- **How I checked it:** The links and the `git log` in `team.md` come from our team repository; I checked the DWD wind and temperature files with `curl` (both returned 200) and read the reflection against our pull requests.
